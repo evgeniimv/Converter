@@ -132,16 +132,6 @@ public class UIController {
         return valueFrom / valueTo;
     }
 
-    public void onRefreshClick(View v) {
-        if (isOnline(mainActivity)) {
-            currencyAsyncTask = new CurrencyAsyncTask();
-            currencyAsyncTask.execute();
-        } else {
-            Toast.makeText(mainActivity, "Необходимо поключение " +
-                    "к интернету", Toast.LENGTH_LONG).show();
-        }
-    }
-
     public static boolean isOnline(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -171,7 +161,7 @@ public class UIController {
                 });
             }
         };
-        timer.schedule(doCurrencyAsynTask, 0, 3600000); //execute in every 50000 ms
+        timer.schedule(doCurrencyAsynTask, 0, 3600000); //execute in every 1 hour
     }
 
 
