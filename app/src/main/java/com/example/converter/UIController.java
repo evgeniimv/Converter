@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -31,9 +33,11 @@ public class UIController {
     private static ArrayAdapter<String> adapter;
     private FileOperations fileOperations;
     private MainActivity mainActivity;
-    private CurrencyAsyncTask currencyAsyncTask;
 
-    public UIController() { mainActivity = MainActivity.getInstance(); }
+
+    public UIController() {
+        mainActivity = MainActivity.getInstance();
+    }
 
 
     public void setOnCreateInterface() {
@@ -58,6 +62,7 @@ public class UIController {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -74,6 +79,7 @@ public class UIController {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -97,9 +103,9 @@ public class UIController {
                 //Вычисляем коэффициент преобразования числа "userPrintedValue"
                 //введенного пользователем
                 JSONObject jsonObject = new JSONObject(fileOperations.readFile());
-                String chosenItemSpinner1 = (String)spinner1.getSelectedItem() ;
-                String chosenItemSpinner2 = (String)spinner2.getSelectedItem() ;
-                calculatedCurrency = CalcCurrencyFromJson(chosenItemSpinner1,chosenItemSpinner2,jsonObject);
+                String chosenItemSpinner1 = (String) spinner1.getSelectedItem();
+                String chosenItemSpinner2 = (String) spinner2.getSelectedItem();
+                calculatedCurrency = CalcCurrencyFromJson(chosenItemSpinner1, chosenItemSpinner2, jsonObject);
 
                 // Выводим соответствующий коэффициент конвертации "calculatedCurrency"
                 // и результат конвертации
@@ -117,11 +123,11 @@ public class UIController {
 
     public float CalcCurrencyFromJson(String itemSpinner1, String itemSpinner2, JSONObject jsonObject) throws JSONException {
         JSONObject allValutes = jsonObject.getJSONObject("Valute");
-        if(itemSpinner1=="RUB"){
+        if (itemSpinner1 == "RUB") {
             JSONObject convertTo = allValutes.getJSONObject(itemSpinner2);
-            return 1/Float.valueOf(convertTo.getString("Value"));
+            return 1 / Float.valueOf(convertTo.getString("Value"));
         }
-        if(itemSpinner2=="RUB"){
+        if (itemSpinner2 == "RUB") {
             JSONObject convertFrom = allValutes.getJSONObject(itemSpinner1);
             return Float.valueOf(convertFrom.getString("Value"));
         }
@@ -152,10 +158,10 @@ public class UIController {
                     public void run() {
                         try {
                             if (isOnline(mainActivity)) {
-                            CurrencyAsyncTask currencyAsyncTask = new CurrencyAsyncTask();
-                            // CurrencyAsyncTask this class is the class that extends AsynchTask
-                            currencyAsyncTask.execute();
-                            }else {
+                                CurrencyAsyncTask currencyAsyncTask = new CurrencyAsyncTask();
+                                // CurrencyAsyncTask this class is the class that extends AsynchTask
+                                currencyAsyncTask.execute();
+                            } else {
                                 Toast.makeText(mainActivity, "Необходимо поключение " +
                                         "к интернету", Toast.LENGTH_LONG).show();
                             }
@@ -168,8 +174,6 @@ public class UIController {
         };
         timer.schedule(doCurrencyAsynTask, 0, 3600000); //execute in every 1 hour
     }
-
-
 
 
 }
