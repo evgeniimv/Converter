@@ -20,8 +20,8 @@ public class CurrencyAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Toast.makeText(MainActivity.getInstance(), "Загружаю курсы " +
-                "валют", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.getInstance(), "Обновление " +
+                "курсов валют", Toast.LENGTH_LONG).show();
     }
     @Override
     protected Void doInBackground(Void... urls) {
@@ -49,6 +49,6 @@ public class CurrencyAsyncTask extends AsyncTask<Void, Void, Void> {
         initialServerLink = (TextView) MainActivity.getInstance().findViewById(R.id.textView4);
 
         lastRefreshingDate.setText(date);
-        initialServerLink.setText("Ссылка на источник: " + NetworkUtils.httpJsonCurrencies);
+        initialServerLink.setText("Текущие курсы загружены с: " + NetworkUtils.httpJsonCurrencies);
     }
 }

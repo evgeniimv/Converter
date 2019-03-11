@@ -64,7 +64,7 @@ public class FileOperations {
                 e.printStackTrace();
             }
         }else{
-            lastRefreshingDate.setText("Необходимо обновить курс валют");
+            lastRefreshingDate.setText("Будет доступно после подключения интернета");
         }
 
     }

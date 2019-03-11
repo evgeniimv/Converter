@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,12 +14,15 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.example.converter.NetworkUtils.isOnline;
 
 public class UIController {
     private String[] data = {"AUD", "AZN", "GBP", "AMD", "BYN", "BGN", "BRL", "HUF", "HKD", "DKK", "USD", "EUR", "INR",
@@ -30,9 +34,12 @@ public class UIController {
     private TextView availblConvertCoef;
     private Float calculatedCurrency;
     private TextView convertationResult;
+    private TextView initialServerLink;
     private static ArrayAdapter<String> adapter;
     private FileOperations fileOperations;
     private MainActivity mainActivity;
+    private Timer timerToAsynkTask;
+    private Timer timerToCheckNetState;
 
 
     public UIController() {
@@ -45,6 +52,7 @@ public class UIController {
         userPrintedText = (TextView) mainActivity.findViewById(R.id.editText);
         convertationResult = (TextView) mainActivity.findViewById(R.id.textView2);
         availblConvertCoef = (TextView) mainActivity.findViewById(R.id.textView3);
+        initialServerLink = (TextView) mainActivity.findViewById(R.id.textView4);
         Arrays.sort(data);
         // подключаем адаптер со списком стран
         adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_spinner_item, data);
@@ -94,8 +102,8 @@ public class UIController {
 
         //проверяем содержит ли файл "file.txt" какие-либо данные
         if (fileOperations.readFile().length() == 0) {
-            Toast.makeText(mainActivity, "Необходимо обновить " +
-                    "курсы валют", Toast.LENGTH_LONG).show();
+            Toast.makeText(mainActivity, "Необходимо подключение " +
+                    "к интернету", Toast.LENGTH_LONG).show();
         } else {
             try {
                 Float userPrintedValue = Float.valueOf(userPrintedText.getText().toString());
@@ -138,19 +146,9 @@ public class UIController {
         return valueFrom / valueTo;
     }
 
-    public static boolean isOnline(Context context) {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
-    }
-
     public void callCurrencyAsyncTask() {
         final Handler handler = new Handler();
-        Timer timer = new Timer();
+        timerToAsynkTask = new Timer();
         TimerTask doCurrencyAsynTask = new TimerTask() {
             @Override
             public void run() {
@@ -158,12 +156,14 @@ public class UIController {
                     public void run() {
                         try {
                             if (isOnline(mainActivity)) {
+
                                 CurrencyAsyncTask currencyAsyncTask = new CurrencyAsyncTask();
                                 // CurrencyAsyncTask this class is the class that extends AsynchTask
                                 currencyAsyncTask.execute();
                             } else {
-                                Toast.makeText(mainActivity, "Необходимо поключение " +
-                                        "к интернету", Toast.LENGTH_LONG).show();
+                                callAutoCheckNetState();
+                                timerToAsynkTask.cancel();
+
                             }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -172,8 +172,34 @@ public class UIController {
                 });
             }
         };
-        timer.schedule(doCurrencyAsynTask, 0, 3600000); //execute in every 1 hour
+        timerToAsynkTask.schedule(doCurrencyAsynTask, 0, 3600000); //execute in every 1 hour
     }
 
-
+    public void callAutoCheckNetState() {
+        final Handler handler = new Handler();
+        timerToCheckNetState = new Timer();
+        TimerTask doNetStateCheckTimer = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isOnline(mainActivity)) {
+                            callCurrencyAsyncTask();
+                            timerToCheckNetState.cancel();
+                        } else {
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initialServerLink.setText("Текущие курсы загружены с: " +
+                                            "\nОтсутствует соединение");
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        };
+        timerToCheckNetState.schedule(doNetStateCheckTimer, 0, 1000);//ckeck in every 1 sek
+    }
 }
