@@ -24,10 +24,6 @@ public class MainActivity extends AppCompatActivity {
         uiController.onButtonClick(v);
     }
 
-    public void onRefreshClick(View v) {
-        uiController.onRefreshClick(v);
-    }
-
     public static MainActivity getInstance() {
         return instance;
     }

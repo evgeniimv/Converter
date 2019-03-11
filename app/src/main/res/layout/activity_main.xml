@@ -85,11 +85,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
+        android:layout_marginBottom="108dp"
         android:text="Актуальный курс :"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        tools:layout_editor_absoluteY="383dp" />
+        app:layout_constraintStart_toStartOf="@+id/button" />
 
     <TextView
         android:id="@+id/textView"
