@@ -3,10 +3,8 @@ package com.example.converter;
 import android.os.AsyncTask;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 
 public class CurrencyAsyncTask extends AsyncTask<Void, Void, Void> {

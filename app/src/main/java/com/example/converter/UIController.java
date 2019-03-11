@@ -1,8 +1,6 @@
 package com.example.converter;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -11,11 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -200,6 +195,7 @@ public class UIController {
                 });
             }
         };
-        timerToCheckNetState.schedule(doNetStateCheckTimer, 0, 1000);//ckeck in every 1 sek
+        timerToCheckNetState.schedule(doNetStateCheckTimer, 0, 1000);//ckeck the internet-state
+        // in every 1 sek
     }
 }
