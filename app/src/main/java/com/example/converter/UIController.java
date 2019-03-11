@@ -151,9 +151,14 @@ public class UIController {
                 handler.post(new Runnable() {
                     public void run() {
                         try {
+                            if (isOnline(mainActivity)) {
                             CurrencyAsyncTask currencyAsyncTask = new CurrencyAsyncTask();
                             // CurrencyAsyncTask this class is the class that extends AsynchTask
                             currencyAsyncTask.execute();
+                            }else {
+                                Toast.makeText(mainActivity, "Необходимо поключение " +
+                                        "к интернету", Toast.LENGTH_LONG).show();
+                            }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                         }
