@@ -20,9 +20,12 @@ public class MainActivity extends AppCompatActivity {
         uiController.setOnCreateInterface();
     }
 
-    public void onButtonClick(View v) {
-        uiController.onButtonClick(v);
+    public void onConvertButtonClick(View v) {
+        uiController.onConvertClick(v);
     }
+
+    public void onSwitchButtonClick(View v) { uiController.onSwitchClick(v); }
+
 
     public static MainActivity getInstance() {
         return instance;

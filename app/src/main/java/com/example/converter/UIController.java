@@ -3,14 +3,17 @@ package com.example.converter;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -35,6 +38,7 @@ public class UIController {
     private MainActivity mainActivity;
     private Timer timerToAsynkTask;
     private Timer timerToCheckNetState;
+//    private String userPrintedText;
 
 
     public UIController() {
@@ -92,7 +96,7 @@ public class UIController {
         callCurrencyAsyncTask();
     }
 
-    public void onButtonClick(View v) {
+    public void onConvertClick(View v) {
         fileOperations = new FileOperations();
 
         //проверяем содержит ли файл "file.txt" какие-либо данные
@@ -122,6 +126,18 @@ public class UIController {
                 Toast.makeText(mainActivity, "Введите конвертируемое число", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public void onSwitchClick(View v) {
+        int positionSpinner1 = spinner1.getSelectedItemPosition();
+        int positionSpinner2 = spinner2.getSelectedItemPosition();
+        spinner1.setSelection(positionSpinner2);
+        spinner2.setSelection(positionSpinner1);
+        if(userPrintedText.getText().toString().matches("\\d+(?:\\.\\d+)?")){
+            onConvertClick(v);
+        }
+
+
     }
 
     public float CalcCurrencyFromJson(String itemSpinner1, String itemSpinner2, JSONObject jsonObject) throws JSONException {
