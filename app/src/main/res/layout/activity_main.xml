@@ -8,18 +8,16 @@
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="141dp"
+        android:layout_width="137dp"
         android:layout_height="29dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toEndOf="@+id/spinner1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685" />
+        app:layout_constraintVertical_bias="0.688" />
 
     <EditText
         android:id="@+id/editText"
@@ -53,7 +51,7 @@
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="140dp"
+        android:layout_width="136dp"
         android:layout_height="29dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -64,7 +62,7 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="384dp"
+        android:layout_width="393dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -81,17 +79,17 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="361dp"
-        android:layout_height="wrap_content"
+        android:layout_width="343dp"
+        android:layout_height="27dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:text="Актуальный курс :"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.629"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/button" />
 
     <TextView
@@ -108,11 +106,11 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="371dp"
+        android:layout_width="342dp"
         android:layout_height="46dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="188dp"
+        android:layout_marginBottom="200dp"
         android:text="Текущие курсы загружены :"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -146,7 +144,7 @@
         android:onClick="onSwitchButtonClick"
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toStartOf="@+id/spinner2"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toEndOf="@+id/spinner1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.744"

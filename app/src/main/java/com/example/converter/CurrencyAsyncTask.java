@@ -47,6 +47,6 @@ public class CurrencyAsyncTask extends AsyncTask<Void, Void, Void> {
         initialServerLink = (TextView) MainActivity.getInstance().findViewById(R.id.textView4);
 
         lastRefreshingDate.setText(date);
-        initialServerLink.setText("Текущие курсы загружены с: " + NetworkUtils.httpJsonCurrencies);
+        initialServerLink.setText("Текущие курсы загружены с: " + "https://www.cbr-xml-daily.ru/#example");
     }
 }
