@@ -133,14 +133,15 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="53dp"
-        android:layout_height="40dp"
+        android:layout_width="63dp"
+        android:layout_height="43dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
         android:onClick="onSwitchButtonClick"
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toStartOf="@+id/spinner2"
@@ -148,6 +149,6 @@
         app:layout_constraintStart_toEndOf="@+id/spinner1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.744"
-        app:srcCompat="@drawable/swap_icon_6" />
+        app:srcCompat="@drawable/swap_button_icon" />
 
 </android.support.constraint.ConstraintLayout>
