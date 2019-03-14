@@ -144,20 +144,26 @@ public class UIController {
     }
 
     public float CalcCurrencyFromJson(String itemSpinner1, String itemSpinner2, JSONObject jsonObject) throws JSONException {
+
         JSONObject allValutes = jsonObject.getJSONObject("Valute");
         if (itemSpinner1 == "RUB") {
             JSONObject convertTo = allValutes.getJSONObject(itemSpinner2);
-            return 1 / Float.valueOf(convertTo.getString("Value"));
+            Float nominalTo = Float.valueOf(convertTo.getString("Nominal"));
+
+            return nominalTo / Float.valueOf(convertTo.getString("Value"));
         }
         if (itemSpinner2 == "RUB") {
             JSONObject convertFrom = allValutes.getJSONObject(itemSpinner1);
-            return Float.valueOf(convertFrom.getString("Value"));
+            Float nominalFrom = Float.valueOf(convertFrom.getString("Nominal"));
+            return Float.valueOf(convertFrom.getString("Value"))/nominalFrom;
         }
         JSONObject convertTo = allValutes.getJSONObject(itemSpinner2);
         JSONObject convertFrom = allValutes.getJSONObject(itemSpinner1);
         Float valueTo = Float.valueOf(convertTo.getString("Value"));
+        Float nominalTo = Float.valueOf(convertTo.getString("Nominal"));
         Float valueFrom = Float.valueOf(convertFrom.getString("Value"));
-        return valueFrom / valueTo;
+        Float nominalFrom = Float.valueOf(convertFrom.getString("Nominal"));
+        return (valueFrom*nominalTo) / (valueTo*nominalFrom);
     }
 
     public void callCurrencyAsyncTask() {
