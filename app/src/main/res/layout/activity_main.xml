@@ -69,7 +69,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/colorbutton"
+        android:background="@drawable/color__convert_button"
         android:onClick="onConvertButtonClick"
         android:text="Конвертировать"
         app:layout_constraintBottom_toTopOf="@+id/textView2"

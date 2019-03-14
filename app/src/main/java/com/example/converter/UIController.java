@@ -3,17 +3,16 @@ package com.example.converter;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.telephony.PhoneNumberUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -38,7 +37,7 @@ public class UIController {
     private MainActivity mainActivity;
     private Timer timerToAsynkTask;
     private Timer timerToCheckNetState;
-//    private String userPrintedText;
+    private Animation animSwapBtn;
 
 
     public UIController() {
@@ -52,6 +51,9 @@ public class UIController {
         convertationResult = (TextView) mainActivity.findViewById(R.id.textView2);
         availblConvertCoef = (TextView) mainActivity.findViewById(R.id.textView3);
         initialServerLink = (TextView) mainActivity.findViewById(R.id.textView4);
+        animSwapBtn = AnimationUtils.loadAnimation(MainActivity.getInstance(),
+                R.anim.anim_alpha);
+
         Arrays.sort(data);
         // подключаем адаптер со списком стран
         adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_spinner_item, data);
@@ -135,8 +137,9 @@ public class UIController {
         spinner2.setSelection(positionSpinner1);
         if(userPrintedText.getText().toString().matches("\\d+(?:\\.\\d+)?")){
             onConvertClick(v);
-        }
 
+        }
+        v.startAnimation(animSwapBtn);
 
     }
 
